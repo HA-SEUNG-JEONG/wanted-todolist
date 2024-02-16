@@ -45,7 +45,8 @@ const List = () => {
 
     const [value, setValue] = useState("");
 
-    const onSubmit = (event: React.FormEvent) => {
+    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        console.log(event);
         event.preventDefault();
         dispatch(addTodo(value));
         setValue("");
@@ -62,12 +63,16 @@ const List = () => {
         }
     };
 
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(event.target.value);
+    };
+
     return (
         <TodoListContainer>
             <Form onSubmit={onSubmit}>
                 <input
                     value={value}
-                    onChange={(event) => setValue(event.target.value)}
+                    onChange={handleChange}
                     placeholder="할 일을 입력하세요."
                 />
                 <Button type="submit">추가</Button>
