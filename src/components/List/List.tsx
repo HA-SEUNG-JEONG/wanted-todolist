@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../store";
+import { RootState } from "../../store/store";
 import { addTodo, removeTodo } from "../../store/todo";
 import styled from "styled-components";
 import { toast } from "react-toastify";
@@ -40,13 +40,12 @@ const Button = styled.button`
 `;
 
 const List = () => {
-    const todos = useSelector((state: RootState) => state.todo);
+    const { todos } = useSelector((state: RootState) => state.todos);
     const dispatch = useDispatch();
 
     const [value, setValue] = useState("");
 
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        console.log(event);
         event.preventDefault();
         dispatch(addTodo(value));
         setValue("");
@@ -77,7 +76,7 @@ const List = () => {
                 />
                 <Button type="submit">추가</Button>
             </Form>
-            {todos?.todos.map((todo, index) => (
+            {todos?.map((todo, index) => (
                 <TodoItem key={index}>
                     {todo}
                     <button onClick={() => handleRemove(index)}>삭제</button>
