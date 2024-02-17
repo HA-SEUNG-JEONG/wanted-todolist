@@ -14,10 +14,12 @@ const persistedReducer = persistReducer(persistConfig, todoReducer);
 const store = configureStore({
     reducer: {
         todos: persistedReducer
-    }
+    },
+    middleware: (getDefaultMiddlware) =>
+        getDefaultMiddlware({ serializableCheck: false })
 });
 
-export const persistor = persistStore(store);
+persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 
