@@ -7,19 +7,14 @@ import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
     key: "root",
-    storage,
-    blacklist: ["register"] // 저장 안 할 것들 지정 가능 예시: ["todo"] 저장 안 할
+    storage
 };
 const persistedReducer = persistReducer(persistConfig, todoReducer);
 
 const store = configureStore({
     reducer: {
-        todo: persistedReducer
-    },
-    middleware: (getDefaultMiddleWare) =>
-        getDefaultMiddleWare({
-            serializableCheck: false
-        })
+        todos: persistedReducer
+    }
 });
 
 export const persistor = persistStore(store);
